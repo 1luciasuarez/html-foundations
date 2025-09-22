@@ -1,19 +1,10 @@
 # HTML Foundations
 
-Módulo de fundamentos de HTML. Estructura por días con objetivos claros y validaciones W3C.
-
 ## Días
-- [Día 1 – Estructura base](./dia01/index.html)
-- Día 2 – Headings y jerarquía (próximo)
-- Día 3 – Enlaces
-- Día 4 – Listas y tablas
-<!-- etc. -->
+- [Día 1 – Estructura base](./dia01/index.html) ✅ (W3C: 0 errores)
 
 ## Cómo abrir
-- Opción 1: Click en los archivos `.html` (vista de GitHub).
-- Opción 2 (recomendada): Clonar y usar **Live Server** en VS Code.
+- Abrí `dia01/index.html` en tu navegador o con **Live Server** (VS Code).
 
-## Checklist de calidad
-- `doctype`, `lang`, `charset`, `viewport`, `title`, `description`.
-- Validación W3C: **0 errores**.
-- Codificación: **UTF-8**.
+## Aprendido hoy
+- doctype, lang, charset, viewport, title, description.
