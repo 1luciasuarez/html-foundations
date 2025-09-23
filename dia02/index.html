@@ -3,12 +3,14 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title> HTML -- Día 2 headings y jerarquía</title>
+        <title> HTML — Día 2 headings y jerarquía</title>
         <meta name="description" content="Practica de headings en HTML: un H1 global, H2 para secciones y H3 para subsecciones, con jerarquía correcta">
     </head>
     <body>
         <a href="#contenido">Saltar al contenido</a>
-        <h1>Guía Fullstack Prodigio - HTML</h1>
+
+        <header>
+                    <h1>Guía Fullstack Prodigio - HTML</h1>
         <nav aria-label="Índice">
             <ul>
                 <li><a href="#estructura">Estructura de documento</a></li>
@@ -16,7 +18,10 @@
             </ul>
         </nav>
 
-        <h2 id="contenido">Contenido</h2>
+        </header>
+
+        <main id="#contenido">
+            <h2 id="contenido">Contenido</h2>
         <p>En esta página practicamos la jerarquía de headings y una estructura clara de secciones.</p>
         
         <h2 id="estructura">Estructura del documento</h2>
@@ -26,11 +31,17 @@
         <h3>Metadatos básicos</h3>
         <p>Incluyen charset UTF-8, viewport para responsive, title y meta description.</p>
 
-        <h2 id="headings">Headings y jerarquia</h2>
+        <h2 id="headings">Headings y jerarquía</h2>
         <p>Los headings comunican el esquema del contenido. No se usan para estilo.</p>
         <h3>Regla práctica</h3>
         <p>un H1, luego un H2 y debajo H3. Evitar saltos innecesarios de nivel.</p>
         <h3>Accesibilidad</h3>
         <p>Una jerarquía clara mejora la navegación con lectores de pantalla.</p>
+        </main>
+        <footer>
+            <p>© Curso Fullstack Prodigio — Día 2</p>
+        </footer>
+
+        
     </body>
 </html>
