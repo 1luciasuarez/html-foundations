@@ -27,7 +27,7 @@
             width="640" height="360">
 
             <!--Decorativa: alt vacío y (sin role)-->
-            <img src="./assets/decoracion.svg" alt="."
+            <img src="./assets/decoracion.svg" alt=""
             width="128" height="128">
 
             <h2 id="figure">Figure y figcaption</h2>
@@ -37,6 +37,36 @@
                 width="800" height="220">
                 <figcaption>Validación W3C en 0 errores del Día 3.</figcaption>
             </figure>
+
+            <h2 id="responsive">Imágenes responsive</h2>
+            <!--opcion 1: img con srcset/sizes-->
+            <img
+            src="./assets/foto-800.jpg"
+            srcset="
+            ./assets/foto-400.jpg 400w,
+            ./assets/foto-800.jpg 800w,
+            ./assets/foto-1200.jpg 1200w"
+            sizes="(max-width: 600px) 100vw, 600px"
+            alt="Descripcion breve y util de la foto"
+            width="800" height="533"
+            loading="lazy" decoding="async">
+
+            <!--opcion 2: pictore con webp + fallback jpg-->
+            <picture>
+                <source 
+                type="image/webp"
+                srcset="./assets/foto-400.webp 400w, ./assets/foto-800.webp 800w, ./assets/foto-1200.webp 1200w"
+                sizes="(max-width: 600px) 100vw, 600px">
+
+                <img
+                src="./assets/foto-800.jpg"
+                srcset="./assets/foto-400.jpg 400w, ./assets/foto-800.jpg 800w, ./assets/foto-1200.jpg 1200w"
+                sizes="(max-width: 600px) 100vw, 600px"
+                alt="Misma descipcion"
+                width="800" height="533"
+                loading="lazy" decoding="async">
+            </picture>
+            
         </main>
 
         <footer>
