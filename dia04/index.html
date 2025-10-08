@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>HTML - Día 4: Imágenes accesibles (parte1)</title>
+        <meta name="description" content="Alt correcto, figure/figcaption, decorativas con alt vacío y dimensiones para evitar layout shift.">
+    </head>
+    <body>
+        <a href="#contenido">Saltar al contenido</a>
+
+        <header>
+            <h1>Guía Fullstack Prodigio - Imágenes</h1>
+            <nav aria-label="Índice">
+                <ul>
+                    <li><a href="#basico">Imágenes básicas</a></li>
+                    <li><a href="#figure">Figure y figcaption</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main id="contenido">
+            <h2 id="basico">Imagenes básicas</h2>
+            <!--Informativa: alt describe el proposito/contenido-->
+            <img src="./assets/diagrama.svg"
+            alt="Diagrama del flujo de una página con H1, H2 y H3"
+            width="640" height="360">
+
+            <!--Decorativa: alt vacío y (sin role)-->
+            <img src="./assets/decoracion.svg" alt="."
+            width="128" height="128">
+
+            <h2 id="figure">Figure y figcaption</h2>
+            <figure>
+                <img src="./assets/captura.svg"
+                alt="Captura del validador de W3C mostrando: No errors or warnings to show"
+                width="800" height="220">
+                <figcaption>Validación W3C en 0 errores del Día 3.</figcaption>
+            </figure>
+        </main>
+
+        <footer>
+            <p>© Curso Fullstack Prodigio — Día 4</p>
+        </footer>
+    </body>
+</html>
