@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>HTML - Día 4: Imágenes accesibles (parte1)</title>
         <meta name="description" content="Alt correcto, figure/figcaption, decorativas con alt vacío y dimensiones para evitar layout shift.">
+        
     </head>
     <body>
         <a href="#contenido">Saltar al contenido</a>
@@ -24,7 +25,8 @@
             <!--Informativa: alt describe el proposito/contenido-->
             <img src="./assets/diagrama.svg"
             alt="Diagrama del flujo de una página con H1, H2 y H3"
-            width="640" height="360">
+            width="640" height="360"
+            fetchpriority="high">
 
             <!--Decorativa: alt vacío y (sin role)-->
             <img src="./assets/decoracion.svg" alt=""
@@ -39,33 +41,30 @@
             </figure>
 
             <h2 id="responsive">Imágenes responsive</h2>
-            <!--opcion 1: img con srcset/sizes-->
-            <img
-            src="./assets/foto-800.jpg"
-            srcset="
-            ./assets/foto-400.jpg 400w,
-            ./assets/foto-800.jpg 800w,
-            ./assets/foto-1200.jpg 1200w"
-            sizes="(max-width: 600px) 100vw, 600px"
-            alt="Descripcion breve y util de la foto"
-            width="800" height="533"
-            loading="lazy" decoding="async">
 
-            <!--opcion 2: pictore con webp + fallback jpg-->
-            <picture>
-                <source 
-                type="image/webp"
-                srcset="./assets/foto-400.webp 400w, ./assets/foto-800.webp 800w, ./assets/foto-1200.webp 1200w"
-                sizes="(max-width: 600px) 100vw, 600px">
+<!-- Opción 1: img con srcset/sizes -->
+<img
+  src="./assets/foto-800.jpg"
+  srcset="./assets/foto-400.jpg 400w, ./assets/foto-800.jpg 800w, ./assets/foto-1200.jpg 1200w"
+  sizes="100vw"
+  alt="Fondo degradado morado y azul con etiqueta Foto demo"
+  width="800" height="533"
+  loading="lazy" decoding="async">
 
-                <img
-                src="./assets/foto-800.jpg"
-                srcset="./assets/foto-400.jpg 400w, ./assets/foto-800.jpg 800w, ./assets/foto-1200.jpg 1200w"
-                sizes="(max-width: 600px) 100vw, 600px"
-                alt="Misma descipcion"
-                width="800" height="533"
-                loading="lazy" decoding="async">
-            </picture>
+<!-- Opción 2: picture con WebP + fallback JPG -->
+<picture>
+  <source
+    type="image/webp"
+    srcset="./assets/foto-400.webp 400w, ./assets/foto-800.webp 800w, ./assets/foto-1200.webp 1200w"
+    sizes="100vw">
+  <img
+    src="./assets/foto-800.jpg"
+    srcset="./assets/foto-400.jpg 400w, ./assets/foto-800.jpg 800w, ./assets/foto-1200.jpg 1200w"
+    sizes="100vw"
+    alt="Fondo degradado morado y azul con etiqueta Foto demo"
+    width="800" height="533"
+    loading="lazy" decoding="async">
+</picture>
             
         </main>
 
