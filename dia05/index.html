@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device_width, initial-scale=1">
+        <title>HTML - Día 5: Listas y tablas</title>
+        <meta name="description" content="Práctica de listas (ul/ol/dl) y tablas básicas con semántica correcta.">
+        <style>
+            body {font-family: system-ui, sans-serif; line-height: 1.5;}
+            main { max-width: 900px; margin: 0 auto; padding: 1rem; }
+            img { max-width: 100%; height: auto; display: block;}
+            table { border-collapse: collapse; width: 100%; margin-block: 1rem;}
+            th, td {border: 1px solid #ddd; padding: .5rem .75rem; text-align: left; }
+            thead th {background: #f5f7ff;}
+            caption {caption-side: top; text-align: left; font-weight: 600 ; padding-bottom: .25rem;}
+        </style>
+    </head>
+    <body>
+        <a href="#contenido"> Saltar al contenido</a>
+
+
+        <header>
+            <h1>Guia Fullstack Prodigio - Listas y tablas</h1>
+            <nav aria-label="Índice">
+                <ul>
+                    <li><a href="#listas">Listas</a></li>
+                    <li><a href="#tablas">Tablas básicas</a></li>
+                </ul>
+            </nav>
+        </header>
+
+
+        <main id="#contenido">
+            <h2 id="#listas">Listas</h2>
+
+            <h3>Lista desordenada (ul)</h3>
+            <ul>
+                <li>Configurar entorno</li>
+                <li>Crear estructura HTML</li>
+                <li>Validar en W3C</li>
+            </ul>
+
+            <h3>Lista ordenada (ol) con opciones</h3>
+            <ol start="3">
+                <li>Paso tres</li>
+                <li>Paso cuatro</li>
+            </ol>
+            <ol reversed>
+                <li>Final</li>
+                <li>Penúltimo</li>
+            </ol>
+
+            <h3>Anidar listas</h3>
+            <ol>
+                <li>Plan 
+                    <ul>
+                        <li>Alncance</li>
+                        <li>Hitos</li>
+                    </ul>
+                </li>
+                <li>Ejecución</li>
+            </ol>
+
+            <h3>Lista de descripción (d1)</h3>
+            <dl>
+                <dt>API</dt>
+                <dd>Interfaz para que dos programas se comuniquen.</dd>
+                <dt>HTML</dt>
+                <dd>Lenguaje de marcado para estructurar documentos.</dd>
+            </dl>
+
+            <h2 id="tablas">Tablas básicas</h2>
+            <p>(Completarás esta sección en el bloque 2.)</p>
+        </main>
+
+        <footer>
+            <p>© Curso Fullstack Prodigio — Día 5</p>
+        </footer>
+    </body>
+</html>
