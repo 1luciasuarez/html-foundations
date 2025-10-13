@@ -2,7 +2,7 @@
 <html lang="es">
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device_width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>HTML - Día 5: Listas y tablas</title>
         <meta name="description" content="Práctica de listas (ul/ol/dl) y tablas básicas con semántica correcta.">
         <style>
@@ -30,8 +30,8 @@
         </header>
 
 
-        <main id="#contenido">
-            <h2 id="#listas">Listas</h2>
+        <main id="contenido">
+            <h2 id="listas">Listas</h2>
 
             <h3>Lista desordenada (ul)</h3>
             <ul>
@@ -70,7 +70,44 @@
             </dl>
 
             <h2 id="tablas">Tablas básicas</h2>
-            <p>(Completarás esta sección en el bloque 2.)</p>
+            <table>
+                <caption>Resumen de avances - HTML</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Día</th>
+                        <th scope="col">Tema</th>
+                        <th scope="col">Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Estructura básica</td>
+                        <td>Completado</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Headings y jerarquía</td>
+                        <td>Completado</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Enlaces y rutas</td>
+                        <td>Completado</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">4</th>
+                        <td>Imágenes accesibles y responsive</td>
+                        <td>Completado</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th scope="row" colspan="2">Total completados</th>
+                        <td>4 / 4</td>
+                    </tr>
+                </tfoot>
+            </table>
         </main>
 
         <footer>
