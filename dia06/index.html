@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>HTML — Día 6: Tablas accesibles (cabeceras agrupadas)</title>
+    <meta name="description" content="Tablas con cabeceras multinivel usando scope=colgroup/rowgroup y rowspan/colspan." />
+    <style>
+      body { font-family: system-ui, sans-serif; line-height: 1.5; }
+      main { max-width: 1000px; margin: 0 auto; padding: 1rem; }
+      .tabla-scroll { overflow-x: auto; }
+      table { border-collapse: collapse; width: 100%; min-width: 720px; margin-block: 1rem; }
+      th, td { border: 1px solid #ddd; padding: .5rem .75rem; text-align: left; }
+      thead th { background: #f5f7ff; }
+      caption { caption-side: top; text-align: left; font-weight: 600; padding-bottom: .25rem; }
+      /* Visual de grupos (opcional) */
+      .grupo { background: #f0f9ff; }
+      .sub { background: #f8fafc; }
+    </style>
+  </head>
+  <body>
+    <a href="#contenido">Saltar al contenido</a>
+
+    <header>
+      <h1>Guía Fullstack Prodigio — Tablas accesibles</h1>
+      <nav aria-label="Índice">
+        <ul>
+          <li><a href="#agrupadas">Cabeceras agrupadas</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="contenido">
+      <h2 id="agrupadas">Cabeceras agrupadas (<code>&lt;colgroup&gt;</code>/<code>rowgroup</code>)</h2>
+
+      <div class="tabla-scroll" role="region" aria-labelledby="agrupadas" tabindex="0">
+        <table>
+          <caption>Asistencia por módulo y semana — Cohorte A</caption>
+          <thead>
+            <tr>
+              <!-- Ahora son 2 primeras columnas fijas -->
+              <th scope="col" rowspan="2">Área</th>
+              <th scope="col" rowspan="2">Estudiante</th>
+              <!-- Dos grupos de 2 columnas cada uno -->
+              <th scope="colgroup" colspan="2" class="grupo">Módulo 1</th>
+              <th scope="colgroup" colspan="2" class="grupo">Módulo 2</th>
+            </tr>
+            <tr>
+              <th scope="col" abbr="Sem 1" class="sub">Semana 1</th>
+              <th scope="col" abbr="Sem 2" class="sub">Semana 2</th>
+              <th scope="col" abbr="Sem 3" class="sub">Semana 3</th>
+              <th scope="col" abbr="Sem 4" class="sub">Semana 4</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <!-- Cabecera de grupo de filas (Frontend) ocupa 1ª col y agrupa 2 filas -->
+              <th scope="rowgroup" rowspan="2">Frontend</th>
+              <!-- Cabecera de fila (estudiante) en 2ª col -->
+              <th scope="row">Lucía S.</th>
+              <td>✔︎</td><td>✔︎</td><td>✔︎</td><td>✗</td>
+            </tr>
+            <tr>
+              <th scope="row">Marcos D.</th>
+              <td>✔︎</td><td>✗</td><td>✔︎</td><td>✔︎</td>
+            </tr>
+
+            <tr>
+              <th scope="rowgroup" rowspan="2">Backend</th>
+              <th scope="row">Sofía R.</th>
+              <td>✔︎</td><td>✔︎</td><td>✗</td><td>✔︎</td>
+            </tr>
+            <tr>
+              <th scope="row">Alan P.</th>
+              <td>✗</td><td>✔︎</td><td>✔︎</td><td>✔︎</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th scope="row" colspan="2">Total presentes (✔︎)</th>
+              <td>3</td><td>3</td><td>3</td><td>4</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <p>
+        En esta tabla, los <strong>módulos</strong> agrupan columnas
+        (cabeceras de grupo con <code>scope="colgroup"</code>) y las
+        <strong>áreas</strong> (Frontend/Backend) agrupan filas
+        (cabeceras de grupo con <code>scope="rowgroup"</code> y
+        <code>rowspan</code> en la primera columna).
+      </p>
+    </main>
+
+    <footer>
+      <p>© Curso Fullstack Prodigio — Día 6</p>
+    </footer>
+  </body>
+</html>
