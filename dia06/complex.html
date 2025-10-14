@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>HTML — Día 6: Tabla compleja (headers/id)</title>
+    <meta name="description" content="Tabla compleja con múltiples cabeceras por celda usando headers/id para asociaciones explícitas." />
+    <style>
+      body { font-family: system-ui, sans-serif; line-height: 1.5; }
+      main { max-width: 1100px; margin: 0 auto; padding: 1rem; }
+      .tabla-scroll { overflow-x: auto; }
+      table { border-collapse: collapse; width: 100%; min-width: 820px; margin-block: 1rem; }
+      th, td { border: 1px solid #ddd; padding: .5rem .75rem; text-align: left; }
+      thead th { background: #f5f7ff; }
+      caption { caption-side: top; text-align: left; font-weight: 600; padding-bottom: .25rem; }
+      .sr-only {
+        position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+        overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="#contenido">Saltar al contenido</a>
+
+    <main id="contenido">
+      <h1>Tabla compleja — headers/id</h1>
+
+      <div class="tabla-scroll" role="region" aria-labelledby="titulo" tabindex="0">
+        <table>
+          <caption id="titulo">Métricas por región, curso y modalidad — Q1/Q2</caption>
+
+          <thead>
+            <tr>
+              <!-- Tres primeras columnas son encabezados de FILA (las rotulamos solo para AT) -->
+              <th id="h-reg" scope="col" class="sr-only">Región</th>
+              <th id="h-curso" scope="col" class="sr-only">Curso</th>
+              <th id="h-mod" scope="col" class="sr-only">Modalidad</th>
+
+              <!-- Cabeceras de GRUPO de columna -->
+              <th id="c-q1" scope="colgroup" colspan="2">Q1</th>
+              <th id="c-q2" scope="colgroup" colspan="2">Q2</th>
+            </tr>
+            <tr>
+              <!-- “relleno” para las 3 primeras col -->
+              <th class="sr-only">—</th>
+              <th class="sr-only">—</th>
+              <th class="sr-only">—</th>
+
+              <!-- Cabeceras de COLUMNA -->
+              <th id="c-q1-ins" scope="col">Inscritos</th>
+              <th id="c-q1-apr" scope="col">Aprobados</th>
+              <th id="c-q2-ins" scope="col">Inscritos</th>
+              <th id="c-q2-apr" scope="col">Aprobados</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <!-- Región: Américas (agrupa 4 filas) -->
+            <tr>
+              <th id="r-am" scope="rowgroup" rowspan="4">Américas</th>
+              <th id="r-am-html" scope="rowgroup" rowspan="2">Curso HTML</th>
+              <th id="r-am-html-online" scope="row">Online</th>
+              <td headers="r-am r-am-html r-am-html-online c-q1 c-q1-ins">120</td>
+              <td headers="r-am r-am-html r-am-html-online c-q1 c-q1-apr">90</td>
+              <td headers="r-am r-am-html r-am-html-online c-q2 c-q2-ins">140</td>
+              <td headers="r-am r-am-html r-am-html-online c-q2 c-q2-apr">110</td>
+            </tr>
+            <tr>
+              <th id="r-am-html-pres" scope="row">Presencial</th>
+              <td headers="r-am r-am-html r-am-html-pres c-q1 c-q1-ins">80</td>
+              <td headers="r-am r-am-html r-am-html-pres c-q1 c-q1-apr">60</td>
+              <td headers="r-am r-am-html r-am-html-pres c-q2 c-q2-ins">95</td>
+              <td headers="r-am r-am-html r-am-html-pres c-q2 c-q2-apr">70</td>
+            </tr>
+
+            <tr>
+              <th id="r-am-css" scope="rowgroup" rowspan="2">Curso CSS</th>
+              <th id="r-am-css-online" scope="row">Online</th>
+              <td headers="r-am r-am-css r-am-css-online c-q1 c-q1-ins">100</td>
+              <td headers="r-am r-am-css r-am-css-online c-q1 c-q1-apr">75</td>
+              <td headers="r-am r-am-css r-am-css-online c-q2 c-q2-ins">120</td>
+              <td headers="r-am r-am-css r-am-css-online c-q2 c-q2-apr">96</td>
+            </tr>
+            <tr>
+              <th id="r-am-css-pres" scope="row">Presencial</th>
+              <td headers="r-am r-am-css r-am-css-pres c-q1 c-q1-ins">70</td>
+              <td headers="r-am r-am-css r-am-css-pres c-q1 c-q1-apr">55</td>
+              <td headers="r-am r-am-css r-am-css-pres c-q2 c-q2-ins">85</td>
+              <td headers="r-am r-am-css r-am-css-pres c-q2 c-q2-apr">68</td>
+            </tr>
+
+            <!-- Región: EMEA -->
+            <tr>
+              <th id="r-emea" scope="rowgroup" rowspan="4">EMEA</th>
+              <th id="r-emea-html" scope="rowgroup" rowspan="2">Curso HTML</th>
+              <th id="r-emea-html-online" scope="row">Online</th>
+              <td headers="r-emea r-emea-html r-emea-html-online c-q1 c-q1-ins">90</td>
+              <td headers="r-emea r-emea-html r-emea-html-online c-q1 c-q1-apr">72</td>
+              <td headers="r-emea r-emea-html r-emea-html-online c-q2 c-q2-ins">110</td>
+              <td headers="r-emea r-emea-html r-emea-html-online c-q2 c-q2-apr">88</td>
+            </tr>
+            <tr>
+              <th id="r-emea-html-pres" scope="row">Presencial</th>
+              <td headers="r-emea r-emea-html r-emea-html-pres c-q1 c-q1-ins">60</td>
+              <td headers="r-emea r-emea-html r-emea-html-pres c-q1 c-q1-apr">45</td>
+              <td headers="r-emea r-emea-html r-emea-html-pres c-q2 c-q2-ins">75</td>
+              <td headers="r-emea r-emea-html r-emea-html-pres c-q2 c-q2-apr">58</td>
+            </tr>
+            <tr>
+              <th id="r-emea-css" scope="rowgroup" rowspan="2">Curso CSS</th>
+              <th id="r-emea-css-online" scope="row">Online</th>
+              <td headers="r-emea r-emea-css r-emea-css-online c-q1 c-q1-ins">85</td>
+              <td headers="r-emea r-emea-css r-emea-css-online c-q1 c-q1-apr">63</td>
+              <td headers="r-emea r-emea-css r-emea-css-online c-q2 c-q2-ins">95</td>
+              <td headers="r-emea r-emea-css r-emea-css-online c-q2 c-q2-apr">74</td>
+            </tr>
+            <tr>
+              <th id="r-emea-css-pres" scope="row">Presencial</th>
+              <td headers="r-emea r-emea-css r-emea-css-pres c-q1 c-q1-ins">58</td>
+              <td headers="r-emea r-emea-css r-emea-css-pres c-q1 c-q1-apr">42</td>
+              <td headers="r-emea r-emea-css r-emea-css-pres c-q2 c-q2-ins">70</td>
+              <td headers="r-emea r-emea-css r-emea-css-pres c-q2 c-q2-apr">53</td>
+            </tr>
+          </tbody>
+
+          <tfoot>
+            <tr>
+              <th scope="row" colspan="3">Totales (demo)</th>
+              <td>—</td><td>—</td><td>—</td><td>—</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <p>
+        Cada <code>td</code> referencia con <code>headers</code> los <code>id</code> de:
+        <em>Región</em>, <em>Curso</em>, <em>Modalidad</em>, <em>Trimestre</em> (colgroup) y
+        <em>Métrica</em> (col). Esto hace explícitas las relaciones cuando
+        <code>scope</code> solo no alcanza o la tabla es irregular.
+      </p>
+
+      <p><a href="./index.html">Volver al ejemplo anterior</a></p>
+    </main>
+  </body>
+</html>
