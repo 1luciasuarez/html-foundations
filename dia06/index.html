@@ -33,7 +33,14 @@
     <main id="contenido">
       <h2 id="agrupadas">Cabeceras agrupadas (<code>&lt;colgroup&gt;</code>/<code>rowgroup</code>)</h2>
 
-      <div class="tabla-scroll" role="region" aria-labelledby="agrupadas" tabindex="0">
+      <p id="hint-agrupadas" class="sr-only">Sugerencia: esta tabla admite desplazamiento horizontal. Usa las flechas o desliza para ver todas las columnas.</p>
+<div class="hint-mobile" aria-hidden="true">↔ Desliza horizontal para ver más columnas</div>
+
+<div class="tabla-scroll" role="region"
+     aria-labelledby="agrupadas"
+     aria-describedby="hint-agrupadas"
+     tabindex="0">
+  <table class="tabla-sticky">
         <table>
           <caption>Asistencia por módulo y semana — Cohorte A</caption>
           <thead>
