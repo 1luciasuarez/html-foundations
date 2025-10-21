@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HTML - Dia 7: Formularios (bloque 1)</title>
+    <meta name="description" content="Formularios semánticos: label for/id, name, autocomplete, tipos de input y ayudas.">
+    <style>
+      :root { color-scheme: light dark; }
+      body { font-family: system-ui, sans-serif; line-height: 1.5; }
+      main { max-width: 840px; margin: 0 auto; padding: 1rem; }
+      form { display: grid; gap: 1rem; }
+      .campo { display: grid; gap: .35rem; }
+      label { font-weight: 600; }
+      input, textarea, select, button {
+        font: inherit; padding: .6rem .7rem; border: 1px solid #ccc; border-radius: .5rem;
+      }
+      small { color: #555; }
+      .fila { display: grid; gap: 1rem; grid-template-columns: 1fr 1fr; }
+      @media (max-width: 700px) { .fila { grid-template-columns: 1fr; } }
+    </style>
+    </head>
+    <body>
+        <a href="#contenido">Saltar al contenido</a>
+
+        <header>
+            <h1>Guía Fullstack Prodigio - Formularios (bloque 1)</h1>
+            <nav aria-label="Índice">
+                <ul>
+                    <li><a href="#form-base">Formulario base</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main id="contenido">
+            <h2 id="form-base">Formulario base</h2>
+
+            <form action="#" method="post">
+                <!--Nombre-->
+                <div class="campo">
+                    <label for="nombre">Nombre y apellido</label>
+                    <input id="nombre" name="full_name" type="text" autocomplete="name" required
+                    placeholder="Ej.: Lucia Belen">
+                    <small>Usa tu nombre completo tal como querés que figure.</small>
+                </div>
+                <!--Email + tel en una fila-->
+                <div class="fila">
+                    <div class="campo">
+                        <label for="email">Correo electronico</label>
+                        <input id="email" name="email" type="email" autocomplete="email" required
+                        placeholder="ejemplo@correo.com">
+                        <small>Recibirás confirmaciones aquí.</small>
+                    </div>
+
+                    <div class="campo">
+                        <label for="tel">Teléfono</label>
+                        <input id="tel" name="phone" type="tel" inputmode="tel" autocomplete="tel"
+                        aria-describedby="ayuda-tel"
+                        placeholder="+54 9 11 5555 5555">
+                        <small id="ayuda-tel">Incluí el código de país si sos de Argentina: +54 9...</small>
+                    </div>
+                </div>
+
+
+                <!--Sitio + Edad-->
+                <div class="fila">
+                    <div class="campo">
+                        <label for="web">Sitio web (opcional)</label>
+                        <input id="web" name="website" type="url" autocomplete="url"
+                        placeholder="https://tu-dominio.com">
+                        <small>Solo números enteros.</small>
+                    </div>
+                </div>
+
+                <!--Fecha de contacto preferida-->
+                <div class="campo">
+                    <label for="fecha">Fecha preferida de contacto</label>
+                    <input id="fecha" name="contact_date" type="date">
+                    <small>Elegí una fecha aproximada.</small>
+                </div>
+
+                <!--Mensaje-->
+                <div class="campo">
+                    <label for="msg">Mensaje</label>
+                    <textarea id="msg" name="message" rows="4" placeholder="Contame brevemente tu consulta"></textarea>
+                    <small>Descripción breve; detalles avanzados los vemos luego.</small>
+                </div>
+                <button type="submit">Enviar</button>
+            </form>
+        </main>
+
+        <footer>
+            <p>© Curso Fullstack Prodigio — Día 7</p>
+        </footer>
+    </body>
+</html>
