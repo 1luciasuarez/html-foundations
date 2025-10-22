@@ -18,6 +18,10 @@
       small { color: #555; }
       .fila { display: grid; gap: 1rem; grid-template-columns: 1fr 1fr; }
       @media (max-width: 700px) { .fila { grid-template-columns: 1fr; } }
+      fieldset { border: 1px solid #ddd; border-radius: .5rem; padding: .75rem 1rem; }
+legend { font-weight: 700; padding: 0 .25rem; }
+.opciones { display: grid; gap: .5rem; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+.opcion { display: flex; align-items: center; gap: .5rem; }
     </style>
     </head>
     <body>
@@ -86,6 +90,70 @@
                     <small>Descripción breve; detalles avanzados los vemos luego.</small>
                 </div>
                 <button type="submit">Enviar</button>
+
+                <!--Preferencia de contacto (RADIOS)-->
+                <fieldset aria-describedby="ayuda-contacto">
+                    <legend>Preferencia de contacto <span aria-hidden="true">*</span></legend>
+                    <small id="ayuda-contacto">Elegí el canal por el que querés que te escriba primero</small>
+
+                    <div class="opciones">
+                        <div class="opcion">
+                            <input type="radio" id="pref-email" name="contact_pref" value="email" required>
+                            <label for="pref-email">Email</label>
+                        </div>
+                        <div class="opcion">
+                            <input type="radio" id="pref-whatsapp" name="contact_pref" value="whatsapp">
+                            <label for="pref-whatsapp">Whatsapp</label>
+                        </div>
+                        <div class="opcion">
+                            <input type="radio" id="pref-llamada" name="contact_pref" value="call">
+                            <label for="pref-llamada">Llamada</label>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <!--Intereses (CHECKBOXES)-->
+                <fieldset aria-describedby="ayuda-intereses">
+                    <legend>--Intereses (múltiple)</legend>
+                    <small id="ayuda-intereses">Marcá todas las áreas que te interesen</small>
+
+                    <div class="opciones">
+                            <div class="opcion">
+                                <input type="checkbox" id="int-html" name="interests" value="html">
+                                <label for="int-html">HTML</label>
+                            </div>
+                            <div class="opcion">
+                                <input type="checkbox" id="int-css" name="interests" value="css">
+                                <label for="int-css">CSS</label>
+                            </div>
+                            <div class="opcion">
+                                <input type="checkbox" id="int-js" name="interests" value="js">
+                                <label for="int-js">Javascript</label>
+                            </div>
+                            <div class="opcion">
+                                <input type="checkbox" id="int-ts" name="interests" value="ts">
+                                <label for="int-ts">TypeScript</label>
+                            </div>
+                        </div>
+                </fieldset>
+
+                <!--Región / país (SELECT con OPTGROUP)-->
+                <div class="campo">
+                    <label for="region">Región / país</label>
+                    <select id="region" name="region" autocomplete="country">
+                        <optgroup label="Ámeria del Sur">
+                            <option value="AR">Argentina</option>
+                            <option value="CL">Chile</option>
+                            <option value="UY">Uruguay</option>
+                           </optgroup>
+                           <optgroup label="Europa">
+                            <option value="ES">España</option>
+                            <option value="IT">Italia</option>
+                            <option value="FR">Francia</option>
+                           </optgroup>
+                    </select>
+                    <small>Podés dejarlo en blanco si no aplica.</small>
+                </div>
             </form>
         </main>
 
