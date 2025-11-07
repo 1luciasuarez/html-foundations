@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-    <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>HTML - Dia 7: Formularios (bloque 1)</title>
-    <meta name="description" content="Formularios semánticos: label for/id, name, autocomplete, tipos de input y ayudas.">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>HTML — Día 7: Formularios (validación y a11y)</title>
+    <meta name="description" content="Formularios semánticos: label for/id, name, autocomplete, tipos de input, agrupación y validación accesible." />
     <style>
       :root { color-scheme: light dark; }
       body { font-family: system-ui, sans-serif; line-height: 1.5; }
@@ -15,150 +15,269 @@
       input, textarea, select, button {
         font: inherit; padding: .6rem .7rem; border: 1px solid #ccc; border-radius: .5rem;
       }
-      small { color: #555; }
       .fila { display: grid; gap: 1rem; grid-template-columns: 1fr 1fr; }
       @media (max-width: 700px) { .fila { grid-template-columns: 1fr; } }
+
       fieldset { border: 1px solid #ddd; border-radius: .5rem; padding: .75rem 1rem; }
-legend { font-weight: 700; padding: 0 .25rem; }
-.opciones { display: grid; gap: .5rem; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
-.opcion { display: flex; align-items: center; gap: .5rem; }
+      legend { font-weight: 700; padding: 0 .25rem; }
+      .opciones { display: grid; gap: .5rem; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+      .opcion { display: flex; align-items: center; gap: .5rem; }
+
+      /* Mensajes e indicadores */
+      small { color: #555; }
+      .error { color: #b00020; }
+      .alerta {
+        border: 1px solid #b00020; background: #ffeef1; color: #5a0010;
+        border-radius: .5rem; padding: .75rem 1rem;
+      }
+      /* Estados nativos */
+      input:required:invalid, select:required:invalid, textarea:required:invalid { border-color: #d33; }
+      input:valid, select:valid, textarea:valid { border-color: #2e7d32; }
+
+      /* Visually hidden (si la querés usar en otro momento) */
+      .sr-only {
+        position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+        overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+      }
     </style>
-    </head>
-    <body>
-        <a href="#contenido">Saltar al contenido</a>
+  </head>
+  <body>
+    <a href="#contenido">Saltar al contenido</a>
 
-        <header>
-            <h1>Guía Fullstack Prodigio - Formularios (bloque 1)</h1>
-            <nav aria-label="Índice">
-                <ul>
-                    <li><a href="#form-base">Formulario base</a></li>
-                </ul>
-            </nav>
-        </header>
+    <header>
+      <h1>Guía Fullstack Prodigio — Formularios</h1>
+      <nav aria-label="Índice">
+        <ul>
+          <li><a href="#form-base">Formulario</a></li>
+        </ul>
+      </nav>
+    </header>
 
-        <main id="contenido">
-            <h2 id="form-base">Formulario base</h2>
+    <main id="contenido">
+      <h2 id="form-base">Formulario de contacto</h2>
 
-            <form action="#" method="post">
-                <!--Nombre-->
-                <div class="campo">
-                    <label for="nombre">Nombre y apellido</label>
-                    <input id="nombre" name="full_name" type="text" autocomplete="name" required
-                    placeholder="Ej.: Lucia Belen">
-                    <small>Usa tu nombre completo tal como querés que figure.</small>
-                </div>
-                <!--Email + tel en una fila-->
-                <div class="fila">
-                    <div class="campo">
-                        <label for="email">Correo electronico</label>
-                        <input id="email" name="email" type="email" autocomplete="email" required
-                        placeholder="ejemplo@correo.com">
-                        <small>Recibirás confirmaciones aquí.</small>
-                    </div>
+      <form action="#" method="post" novalidate>
+        <!-- Resumen de errores -->
+        <div id="alerta-form" class="alerta" role="alert" aria-live="assertive" hidden></div>
 
-                    <div class="campo">
-                        <label for="tel">Teléfono</label>
-                        <input id="tel" name="phone" type="tel" inputmode="tel" autocomplete="tel"
-                        aria-describedby="ayuda-tel"
-                        placeholder="+54 9 11 5555 5555">
-                        <small id="ayuda-tel">Incluí el código de país si sos de Argentina: +54 9...</small>
-                    </div>
-                </div>
+        <!-- Nombre -->
+        <div class="campo">
+          <label for="nombre">Nombre y apellido</label>
+          <input id="nombre" name="full_name" type="text" autocomplete="name" required
+                 placeholder="Ej.: Lucía Belén"
+                 aria-describedby="ayuda-nombre err-nombre" />
+          <small id="ayuda-nombre">Usa tu nombre completo tal como querés que figure.</small>
+          <small id="err-nombre" class="error" role="alert" hidden></small>
+        </div>
 
+        <!-- Email + Tel en una fila -->
+        <div class="fila">
+          <div class="campo">
+            <label for="email">Correo electrónico</label>
+            <input id="email" name="email" type="email" autocomplete="email" required
+                   placeholder="ejemplo@correo.com"
+                   aria-describedby="ayuda-email err-email" />
+            <small id="ayuda-email">Recibirás confirmaciones aquí.</small>
+            <small id="err-email" class="error" role="alert" hidden></small>
+          </div>
 
-                <!--Sitio + Edad-->
-                <div class="fila">
-                    <div class="campo">
-                        <label for="web">Sitio web (opcional)</label>
-                        <input id="web" name="website" type="url" autocomplete="url"
-                        placeholder="https://tu-dominio.com">
-                        <small>Solo números enteros.</small>
-                    </div>
-                </div>
+          <div class="campo">
+            <label for="tel">Teléfono (opcional)</label>
+            <input id="tel" name="phone" type="tel" inputmode="tel" autocomplete="tel"
+                   pattern="^\\+?[\\d\\s()\\-]{7,}$"
+                   title="Usá dígitos, espacios o ()-. Ej.: +54 9 11 5555 5555"
+                   placeholder="+54 9 11 5555 5555"
+                   aria-describedby="ayuda-tel err-tel" />
+            <small id="ayuda-tel">Incluí código de país si sos de Argentina: +54 9…</small>
+            <small id="err-tel" class="error" role="alert" hidden></small>
+          </div>
+        </div>
 
-                <!--Fecha de contacto preferida-->
-                <div class="campo">
-                    <label for="fecha">Fecha preferida de contacto</label>
-                    <input id="fecha" name="contact_date" type="date">
-                    <small>Elegí una fecha aproximada.</small>
-                </div>
+        <!-- Sitio + Edad -->
+        <div class="fila">
+          <div class="campo">
+            <label for="web">Sitio web (opcional)</label>
+            <input id="web" name="website" type="url" autocomplete="url"
+                   placeholder="https://tu-dominio.com"
+                   aria-describedby="ayuda-web err-web" />
+            <small id="ayuda-web">Dejá vacío si no tenés.</small>
+            <small id="err-web" class="error" role="alert" hidden></small>
+          </div>
 
-                <!--Mensaje-->
-                <div class="campo">
-                    <label for="msg">Mensaje</label>
-                    <textarea id="msg" name="message" rows="4" placeholder="Contame brevemente tu consulta"></textarea>
-                    <small>Descripción breve; detalles avanzados los vemos luego.</small>
-                </div>
-                <button type="submit">Enviar</button>
+          <div class="campo">
+            <label for="edad">Edad</label>
+            <input id="edad" name="age" type="number" min="0" max="120" step="1" inputmode="numeric"
+                   placeholder="Ej.: 23"
+                   aria-describedby="ayuda-edad err-edad" />
+            <small id="ayuda-edad">Solo números enteros (0 a 120).</small>
+            <small id="err-edad" class="error" role="alert" hidden></small>
+          </div>
+        </div>
 
-                <!--Preferencia de contacto (RADIOS)-->
-                <fieldset aria-describedby="ayuda-contacto">
-                    <legend>Preferencia de contacto <span aria-hidden="true">*</span></legend>
-                    <small id="ayuda-contacto">Elegí el canal por el que querés que te escriba primero</small>
+        <!-- Fecha de contacto preferida -->
+        <div class="campo">
+          <label for="fecha">Fecha preferida de contacto</label>
+          <input id="fecha" name="contact_date" type="date"
+                 aria-describedby="ayuda-fecha err-fecha" />
+          <small id="ayuda-fecha">Elegí una fecha aproximada.</small>
+          <small id="err-fecha" class="error" role="alert" hidden></small>
+        </div>
 
-                    <div class="opciones">
-                        <div class="opcion">
-                            <input type="radio" id="pref-email" name="contact_pref" value="email" required>
-                            <label for="pref-email">Email</label>
-                        </div>
-                        <div class="opcion">
-                            <input type="radio" id="pref-whatsapp" name="contact_pref" value="whatsapp">
-                            <label for="pref-whatsapp">Whatsapp</label>
-                        </div>
-                        <div class="opcion">
-                            <input type="radio" id="pref-llamada" name="contact_pref" value="call">
-                            <label for="pref-llamada">Llamada</label>
-                        </div>
-                    </div>
-                </fieldset>
+        <!-- Mensaje -->
+        <div class="campo">
+          <label for="msg">Mensaje</label>
+          <textarea id="msg" name="message" rows="4" minlength="10" required
+                    placeholder="Contame brevemente tu consulta..."
+                    aria-describedby="ayuda-msg err-msg"></textarea>
+          <small id="ayuda-msg">Mínimo 10 caracteres.</small>
+          <small id="err-msg" class="error" role="alert" hidden></small>
+        </div>
 
-                <!--Intereses (CHECKBOXES)-->
-                <fieldset aria-describedby="ayuda-intereses">
-                    <legend>--Intereses (múltiple)</legend>
-                    <small id="ayuda-intereses">Marcá todas las áreas que te interesen</small>
+        <!-- Preferencia de contacto (RADIOS) -->
+        <fieldset aria-describedby="ayuda-contacto err-contact">
+          <legend>Preferencia de contacto <span aria-hidden="true">*</span></legend>
+          <small id="ayuda-contacto">Elegí el canal por el que querés que te escriba primero.</small>
+          <small id="err-contact" class="error" role="alert" hidden></small>
 
-                    <div class="opciones">
-                            <div class="opcion">
-                                <input type="checkbox" id="int-html" name="interests" value="html">
-                                <label for="int-html">HTML</label>
-                            </div>
-                            <div class="opcion">
-                                <input type="checkbox" id="int-css" name="interests" value="css">
-                                <label for="int-css">CSS</label>
-                            </div>
-                            <div class="opcion">
-                                <input type="checkbox" id="int-js" name="interests" value="js">
-                                <label for="int-js">Javascript</label>
-                            </div>
-                            <div class="opcion">
-                                <input type="checkbox" id="int-ts" name="interests" value="ts">
-                                <label for="int-ts">TypeScript</label>
-                            </div>
-                        </div>
-                </fieldset>
+          <div class="opciones">
+            <div class="opcion">
+              <input type="radio" id="pref-email" name="contact_pref" value="email" required>
+              <label for="pref-email">Email</label>
+            </div>
+            <div class="opcion">
+              <input type="radio" id="pref-whatsapp" name="contact_pref" value="whatsapp">
+              <label for="pref-whatsapp">WhatsApp</label>
+            </div>
+            <div class="opcion">
+              <input type="radio" id="pref-llamada" name="contact_pref" value="call">
+              <label for="pref-llamada">Llamada</label>
+            </div>
+          </div>
+        </fieldset>
 
-                <!--Región / país (SELECT con OPTGROUP)-->
-                <div class="campo">
-                    <label for="region">Región / país</label>
-                    <select id="region" name="region" autocomplete="country">
-                        <optgroup label="Ámeria del Sur">
-                            <option value="AR">Argentina</option>
-                            <option value="CL">Chile</option>
-                            <option value="UY">Uruguay</option>
-                           </optgroup>
-                           <optgroup label="Europa">
-                            <option value="ES">España</option>
-                            <option value="IT">Italia</option>
-                            <option value="FR">Francia</option>
-                           </optgroup>
-                    </select>
-                    <small>Podés dejarlo en blanco si no aplica.</small>
-                </div>
-            </form>
-        </main>
+        <!-- Intereses (CHECKBOXES) -->
+        <fieldset aria-describedby="ayuda-intereses">
+          <legend>Intereses (múltiple)</legend>
+          <small id="ayuda-intereses">Marcá todas las áreas que te interesen.</small>
 
-        <footer>
-            <p>© Curso Fullstack Prodigio — Día 7</p>
-        </footer>
-    </body>
+          <div class="opciones">
+            <div class="opcion">
+              <input type="checkbox" id="int-html" name="interests" value="html">
+              <label for="int-html">HTML</label>
+            </div>
+            <div class="opcion">
+              <input type="checkbox" id="int-css" name="interests" value="css">
+              <label for="int-css">CSS</label>
+            </div>
+            <div class="opcion">
+              <input type="checkbox" id="int-js" name="interests" value="js">
+              <label for="int-js">JavaScript</label>
+            </div>
+            <div class="opcion">
+              <input type="checkbox" id="int-ts" name="interests" value="ts">
+              <label for="int-ts">TypeScript</label>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Región / país (SELECT con OPTGROUP) -->
+        <div class="campo">
+          <label for="region">Región / país</label>
+          <select id="region" name="region" autocomplete="country"
+                  aria-describedby="ayuda-region err-region">
+            <optgroup label="América del Sur">
+              <option value="">—</option>
+              <option value="AR">Argentina</option>
+              <option value="CL">Chile</option>
+              <option value="UY">Uruguay</option>
+            </optgroup>
+            <optgroup label="Europa">
+              <option value="ES">España</option>
+              <option value="IT">Italia</option>
+              <option value="FR">Francia</option>
+            </optgroup>
+          </select>
+          <small id="ayuda-region">Podés dejarlo en blanco si no aplica.</small>
+          <small id="err-region" class="error" role="alert" hidden></small>
+        </div>
+
+        <button type="submit">Enviar</button>
+      </form>
+    </main>
+
+    <footer>
+      <p>© Curso Fullstack Prodigio — Día 7</p>
+    </footer>
+
+    <!-- Mini JS progresivo para mensajes accesibles -->
+    <script>
+      (() => {
+        const form = document.querySelector('form');
+        const alertBox = document.getElementById('alerta-form');
+        const fields = Array.from(form.querySelectorAll('input, select, textarea'));
+
+        function msg(field) {
+          const v = field.validity;
+          if (v.valueMissing)     return 'Este campo es obligatorio.';
+          if (v.typeMismatch)     return field.type === 'email' ? 'Ingresá un email válido.' :
+                                     field.type === 'url'   ? 'Ingresá una URL válida.' : 'Formato inválido.';
+          if (v.patternMismatch)  return field.title || 'Formato inválido.';
+          if (v.rangeUnderflow)   return `El valor debe ser ≥ ${field.min}.`;
+          if (v.rangeOverflow)    return `El valor debe ser ≤ ${field.max}.`;
+          if (v.tooShort)         return `Mínimo ${field.minLength} caracteres.`;
+          return 'Dato inválido.';
+        }
+
+        function setFieldError(field, text) {
+          field.setAttribute('aria-invalid', 'true');
+          // radios del grupo contact_pref usan err-contact
+          if (field.name === 'contact_pref') {
+            const err = document.getElementById('err-contact');
+            if (err) { err.hidden = false; err.textContent = 'Seleccioná una opción.'; }
+            return;
+          }
+          const err = document.getElementById('err-' + field.id);
+          if (err) { err.hidden = false; err.textContent = text; }
+        }
+
+        function clearFieldError(field) {
+          field.removeAttribute('aria-invalid');
+          if (field.name === 'contact_pref') {
+            const err = document.getElementById('err-contact');
+            if (err) { err.hidden = true; err.textContent = ''; }
+            return;
+          }
+          const err = document.getElementById('err-' + field.id);
+          if (err) { err.hidden = true; err.textContent = ''; }
+        }
+
+        fields.forEach(f => {
+          f.addEventListener('input', () => clearFieldError(f));
+          f.addEventListener('change', () => clearFieldError(f));
+        });
+
+        form.addEventListener('submit', (e) => {
+          const invalid = fields.filter(f => !f.checkValidity());
+          if (invalid.length) {
+            e.preventDefault();
+            alertBox.hidden = false;
+            // Limpiar y volver a construir el resumen
+            alertBox.innerHTML = '<strong>Revisá los campos marcados:</strong>';
+            const ul = document.createElement('ul');
+            invalid.forEach(f => {
+              const texto = msg(f);
+              setFieldError(f, texto);
+              const li = document.createElement('li');
+              const label = form.querySelector('label[for="' + f.id + '"]');
+              li.textContent = (label ? label.textContent : f.name) + ': ' + (f.name === 'contact_pref' ? 'Seleccioná una opción.' : texto);
+              ul.appendChild(li);
+            });
+            alertBox.appendChild(ul);
+            // foco en el primero con error
+            invalid[0].focus();
+          }
+        });
+      })();
+    </script>
+  </body>
 </html>
